@@ -1,0 +1,950 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.2.2 (Python 3.12.9 on win32)" generated="2025-03-17T00:24:51.323626" rpa="false" schemaversion="5">
+<suite id="s1" name="Crud Tests" source="C:\NOVO-CRUD\tests\crud_tests.robot">
+<test id="s1-t1" name="Create Unicorn" line="13">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2025-03-17T00:24:51.986070" level="INFO">Creating Session using : alias=crud, url=https://crudcrud.com/api/a7ad96509b9843da897ada83cc073c7e, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=True,                     debug=0 </msg>
+<arg>crud</arg>
+<arg>${BASE_URL}</arg>
+<arg>verify=true</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2025-03-17T00:24:51.985063" elapsed="0.001007"/>
+</kw>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2025-03-17T00:24:52.829643" level="INFO">POST Request : url=https://crudcrud.com/api/a7ad96509b9843da897ada83cc073c7e/unicorns 
+ path_url=/api/a7ad96509b9843da897ada83cc073c7e/unicorns 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '53', 'Content-Type': 'application/json'} 
+ body=b'{"name": "Sparkle Angel", "age": 2, "colour": "blue"}' 
+ </msg>
+<msg time="2025-03-17T00:24:52.830667" level="INFO">POST Response : url=https://crudcrud.com/api/a7ad96509b9843da897ada83cc073c7e/unicorns 
+ status=201, reason=Created 
+ headers={'Server': 'nginx/1.14.2', 'Date': 'Mon, 17 Mar 2025 03:24:52 GMT', 'Content-Type': 'application/json; charset=utf-8', 'Transfer-Encoding': 'chunked', 'Connection': 'keep-alive', 'Location': '/api/a7ad96509b9843da897ada83cc073c7e/unicorns/67d79604bcc53d03e808bbde', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS', 'Access-Control-Allow-Headers': 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range', 'Access-Control-Expose-Headers': 'Content-Length,Content-Range'} 
+ body={"name":"Sparkle Angel","age":2,"colour":"blue","_id":"67d79604bcc53d03e808bbde"} 
+ </msg>
+<msg time="2025-03-17T00:24:52.831661" level="INFO">${response} = &lt;Response [201]&gt;</msg>
+<var>${response}</var>
+<arg>crud</arg>
+<arg>${RESOURCE}</arg>
+<arg>json=${UNICORN_DATA}</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2025-03-17T00:24:51.986070" elapsed="0.845591"/>
+</kw>
+<kw name="Should Be Equal As Numbers" owner="BuiltIn">
+<msg time="2025-03-17T00:24:52.836654" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${response.status_code}</arg>
+<arg>201</arg>
+<doc>Fails if objects are unequal after converting them to real numbers.</doc>
+<status status="PASS" start="2025-03-17T00:24:52.832639" elapsed="0.005005"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-03-17T00:24:52.843640" level="INFO">${response_json} = {'name': 'Sparkle Angel', 'age': 2, 'colour': 'blue', '_id': '67d79604bcc53d03e808bbde'}</msg>
+<var>${response_json}</var>
+<arg>${response.json()}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-03-17T00:24:52.838648" elapsed="0.004992"/>
+</kw>
+<kw name="Should Be True" owner="BuiltIn">
+<arg>'_id' in ${response_json}</arg>
+<doc>Fails if the given condition is not true.</doc>
+<status status="PASS" start="2025-03-17T00:24:52.844665" elapsed="0.000972"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-03-17T00:24:52.848648" level="INFO">${unicorn_id} = 67d79604bcc53d03e808bbde</msg>
+<var>${unicorn_id}</var>
+<arg>${response_json['_id']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-03-17T00:24:52.846694" elapsed="0.001954"/>
+</kw>
+<kw name="Set Suite Variable" owner="BuiltIn">
+<msg time="2025-03-17T00:24:52.850694" level="INFO">${UNICORN_ID} = 67d79604bcc53d03e808bbde</msg>
+<arg>${UNICORN_ID}</arg>
+<arg>${unicorn_id}</arg>
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<status status="PASS" start="2025-03-17T00:24:52.849692" elapsed="0.001002"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-03-17T00:24:52.851636" level="INFO">
+🦄 CRIADO: {'name': 'Sparkle Angel', 'age': 2, 'colour': 'blue'} | ID: 67d79604bcc53d03e808bbde</msg>
+<arg>\n🦄 CRIADO: ${UNICORN_DATA} | ID: ${UNICORN_ID}</arg>
+<arg>console=True</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-03-17T00:24:52.851636" elapsed="0.001003"/>
+</kw>
+<kw name="Registrar Resultado na Planilha" owner="common">
+<kw name="Get Current Date" owner="DateTime">
+<msg time="2025-03-17T00:24:52.855630" level="INFO">${timestamp} = 17/03/2025 00:24:52</msg>
+<var>${timestamp}</var>
+<arg>result_format=%d/%m/%Y %H:%M:%S</arg>
+<doc>Returns current local or UTC time with an optional increment.</doc>
+<status status="PASS" start="2025-03-17T00:24:52.854637" elapsed="0.000993"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-03-17T00:24:52.856636" level="INFO">${planilha} = C:\NOVO-CRUD\Results\relatorio_erros.csv</msg>
+<var>${planilha}</var>
+<arg>${EXECDIR}${/}Results${/}relatorio_erros.csv</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-03-17T00:24:52.855630" elapsed="0.001006"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-03-17T00:24:52.856636" level="INFO">Tentando salvar resultado em: C:\NOVO-CRUD\Results\relatorio_erros.csv</msg>
+<arg>Tentando salvar resultado em: ${planilha}</arg>
+<arg>console=True</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-03-17T00:24:52.856636" elapsed="0.000996"/>
+</kw>
+<kw name="Create List" owner="BuiltIn">
+<msg time="2025-03-17T00:24:52.858631" level="INFO">${dados} = ['17/03/2025 00:24:52', 'Create Unicorn', 'PASS', 'N/A', 'Nenhum erro encontrado']</msg>
+<var>${dados}</var>
+<arg>${timestamp}</arg>
+<arg>${test_name}</arg>
+<arg>${status}</arg>
+<arg>${error_code}</arg>
+<arg>${error_message}</arg>
+<doc>Returns a list containing given items.</doc>
+<status status="PASS" start="2025-03-17T00:24:52.857632" elapsed="0.000999"/>
+</kw>
+<kw name="Run Keyword And Return Status" owner="BuiltIn">
+<kw name="File Should Exist" owner="OperatingSystem">
+<msg time="2025-03-17T00:24:52.859629" level="INFO" html="true">File '&lt;a href="file://C:\NOVO-CRUD\Results\relatorio_erros.csv"&gt;C:\NOVO-CRUD\Results\relatorio_erros.csv&lt;/a&gt;' exists.</msg>
+<arg>${planilha}</arg>
+<doc>Fails unless the given ``path`` points to an existing file.</doc>
+<status status="PASS" start="2025-03-17T00:24:52.859629" elapsed="0.000000"/>
+</kw>
+<msg time="2025-03-17T00:24:52.859629" level="INFO">${planilha_existe} = True</msg>
+<var>${planilha_existe}</var>
+<arg>OperatingSystem.File Should Exist</arg>
+<arg>${planilha}</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<status status="PASS" start="2025-03-17T00:24:52.859629" elapsed="0.000000"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<arg>not ${planilha_existe}</arg>
+<arg>Criar Planilha Base</arg>
+<arg>${planilha}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2025-03-17T00:24:52.860629" elapsed="0.000000"/>
+</kw>
+<kw name="Convert List To CSV Line" owner="common">
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-03-17T00:24:52.863631" level="INFO">${linha_csv} = </msg>
+<var>${linha_csv}</var>
+<arg>${EMPTY}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-03-17T00:24:52.862631" elapsed="0.001000"/>
+</kw>
+<for flavor="IN">
+<iter>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-03-17T00:24:52.863631" level="INFO">${linha_csv} = 17/03/2025 00:24:52,</msg>
+<var>${linha_csv}</var>
+<arg>${linha_csv}${item},</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-03-17T00:24:52.863631" elapsed="0.000000"/>
+</kw>
+<var name="${item}">17/03/2025 00:24:52</var>
+<status status="PASS" start="2025-03-17T00:24:52.863631" elapsed="0.001041"/>
+</iter>
+<iter>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-03-17T00:24:52.864672" level="INFO">${linha_csv} = 17/03/2025 00:24:52,Create Unicorn,</msg>
+<var>${linha_csv}</var>
+<arg>${linha_csv}${item},</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-03-17T00:24:52.864672" elapsed="0.000000"/>
+</kw>
+<var name="${item}">Create Unicorn</var>
+<status status="PASS" start="2025-03-17T00:24:52.864672" elapsed="0.000000"/>
+</iter>
+<iter>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-03-17T00:24:52.865671" level="INFO">${linha_csv} = 17/03/2025 00:24:52,Create Unicorn,PASS,</msg>
+<var>${linha_csv}</var>
+<arg>${linha_csv}${item},</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-03-17T00:24:52.865671" elapsed="0.000000"/>
+</kw>
+<var name="${item}">PASS</var>
+<status status="PASS" start="2025-03-17T00:24:52.865671" elapsed="0.000000"/>
+</iter>
+<iter>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-03-17T00:24:52.865671" level="INFO">${linha_csv} = 17/03/2025 00:24:52,Create Unicorn,PASS,N/A,</msg>
+<var>${linha_csv}</var>
+<arg>${linha_csv}${item},</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-03-17T00:24:52.865671" elapsed="0.000996"/>
+</kw>
+<var name="${item}">N/A</var>
+<status status="PASS" start="2025-03-17T00:24:52.865671" elapsed="0.000996"/>
+</iter>
+<iter>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-03-17T00:24:52.866667" level="INFO">${linha_csv} = 17/03/2025 00:24:52,Create Unicorn,PASS,N/A,Nenhum erro encontrado,</msg>
+<var>${linha_csv}</var>
+<arg>${linha_csv}${item},</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-03-17T00:24:52.866667" elapsed="0.000000"/>
+</kw>
+<var name="${item}">Nenhum erro encontrado</var>
+<status status="PASS" start="2025-03-17T00:24:52.866667" elapsed="0.000000"/>
+</iter>
+<var>${item}</var>
+<value>@{lista}</value>
+<status status="PASS" start="2025-03-17T00:24:52.863631" elapsed="0.003036"/>
+</for>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2025-03-17T00:24:52.867667" level="INFO">${linha_csv} = 17/03/2025 00:24:52,Create Unicorn,PASS,N/A,Nenhum erro encontrado</msg>
+<var>${linha_csv}</var>
+<arg>'${linha_csv}'.rstrip(',')</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2025-03-17T00:24:52.866667" elapsed="0.001000"/>
+</kw>
+<return>
+<value>${linha_csv}</value>
+<status status="PASS" start="2025-03-17T00:24:52.867667" elapsed="0.000000"/>
+</return>
+<msg time="2025-03-17T00:24:52.867667" level="INFO">${linha_csv} = 17/03/2025 00:24:52,Create Unicorn,PASS,N/A,Nenhum erro encontrado</msg>
+<var>${linha_csv}</var>
+<arg>${dados}</arg>
+<status status="PASS" start="2025-03-17T00:24:52.861632" elapsed="0.006035"/>
+</kw>
+<kw name="Append To File" owner="OperatingSystem">
+<msg time="2025-03-17T00:24:52.868630" level="INFO" html="true">Appended to file '&lt;a href="file://C:\NOVO-CRUD\Results\relatorio_erros.csv"&gt;C:\NOVO-CRUD\Results\relatorio_erros.csv&lt;/a&gt;'.</msg>
+<arg>${planilha}</arg>
+<arg>${linha_csv}\n</arg>
+<arg>encoding=UTF-8</arg>
+<doc>Appends the given content to the specified file.</doc>
+<status status="PASS" start="2025-03-17T00:24:52.867667" elapsed="0.000963"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-03-17T00:24:52.869630" level="INFO">Resultado salvo com sucesso!</msg>
+<arg>Resultado salvo com sucesso!</arg>
+<arg>console=True</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-03-17T00:24:52.869630" elapsed="0.001003"/>
+</kw>
+<arg>${TEST_NAME}</arg>
+<arg>status=PASS</arg>
+<status status="PASS" start="2025-03-17T00:24:52.853637" elapsed="0.016996"/>
+</kw>
+<status status="PASS" start="2025-03-17T00:24:51.984662" elapsed="0.885971"/>
+</test>
+<test id="s1-t2" name="Read Unicorn" line="28">
+<kw name="GET On Session" owner="RequestsLibrary">
+<msg time="2025-03-17T00:24:53.085305" level="INFO">GET Request : url=https://crudcrud.com/api/a7ad96509b9843da897ada83cc073c7e/unicorns/67d79604bcc53d03e808bbde 
+ path_url=/api/a7ad96509b9843da897ada83cc073c7e/unicorns/67d79604bcc53d03e808bbde 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg time="2025-03-17T00:24:53.085305" level="INFO">GET Response : url=https://crudcrud.com/api/a7ad96509b9843da897ada83cc073c7e/unicorns/67d79604bcc53d03e808bbde 
+ status=200, reason=OK 
+ headers={'Server': 'nginx/1.14.2', 'Date': 'Mon, 17 Mar 2025 03:24:53 GMT', 'Content-Type': 'application/json; charset=utf-8', 'Transfer-Encoding': 'chunked', 'Connection': 'keep-alive', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS', 'Access-Control-Allow-Headers': 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range', 'Access-Control-Expose-Headers': 'Content-Length,Content-Range'} 
+ body={"_id":"67d79604bcc53d03e808bbde","name":"Sparkle Angel","age":2,"colour":"blue"} 
+ </msg>
+<msg time="2025-03-17T00:24:53.086340" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<var>${response}</var>
+<arg>crud</arg>
+<arg>${RESOURCE}/${UNICORN_ID}</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2025-03-17T00:24:52.872628" elapsed="0.213712"/>
+</kw>
+<kw name="Should Be Equal As Numbers" owner="BuiltIn">
+<msg time="2025-03-17T00:24:53.088323" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${response.status_code}</arg>
+<arg>200</arg>
+<doc>Fails if objects are unequal after converting them to real numbers.</doc>
+<status status="PASS" start="2025-03-17T00:24:53.087242" elapsed="0.002674"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-03-17T00:24:53.094014" level="INFO">${response_data} = {'_id': '67d79604bcc53d03e808bbde', 'name': 'Sparkle Angel', 'age': 2, 'colour': 'blue'}</msg>
+<var>${response_data}</var>
+<arg>${response.json()}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-03-17T00:24:53.091012" elapsed="0.003002"/>
+</kw>
+<kw name="Should Be True" owner="BuiltIn">
+<arg>'name' in ${response_data}</arg>
+<doc>Fails if the given condition is not true.</doc>
+<status status="PASS" start="2025-03-17T00:24:53.094959" elapsed="0.001053"/>
+</kw>
+<kw name="Should Be True" owner="BuiltIn">
+<arg>'age' in ${response_data}</arg>
+<doc>Fails if the given condition is not true.</doc>
+<status status="PASS" start="2025-03-17T00:24:53.096949" elapsed="0.001064"/>
+</kw>
+<kw name="Should Be True" owner="BuiltIn">
+<arg>'colour' in ${response_data}</arg>
+<doc>Fails if the given condition is not true.</doc>
+<status status="PASS" start="2025-03-17T00:24:53.098949" elapsed="0.001066"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-03-17T00:24:53.102956" level="INFO">
+🔍 DADOS ENCONTRADOS: {'_id': '67d79604bcc53d03e808bbde', 'name': 'Sparkle Angel', 'age': 2, 'colour': 'blue'}</msg>
+<arg>\n🔍 DADOS ENCONTRADOS: ${response_data}</arg>
+<arg>console=True</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-03-17T00:24:53.100951" elapsed="0.003005"/>
+</kw>
+<kw name="Should Be Equal As Strings" owner="BuiltIn">
+<arg>${response_data['name']}</arg>
+<arg>${UNICORN_DATA['name']}</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" start="2025-03-17T00:24:53.104947" elapsed="0.004065"/>
+</kw>
+<kw name="Should Be Equal As Numbers" owner="BuiltIn">
+<arg>${response_data['age']}</arg>
+<arg>${UNICORN_DATA['age']}</arg>
+<doc>Fails if objects are unequal after converting them to real numbers.</doc>
+<status status="PASS" start="2025-03-17T00:24:53.110013" elapsed="0.002944"/>
+</kw>
+<kw name="Should Be Equal As Strings" owner="BuiltIn">
+<arg>${response_data['colour']}</arg>
+<arg>${UNICORN_DATA['colour']}</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" start="2025-03-17T00:24:53.114979" elapsed="0.003992"/>
+</kw>
+<kw name="Registrar Resultado na Planilha" owner="common">
+<kw name="Get Current Date" owner="DateTime">
+<msg time="2025-03-17T00:24:53.121005" level="INFO">${timestamp} = 17/03/2025 00:24:53</msg>
+<var>${timestamp}</var>
+<arg>result_format=%d/%m/%Y %H:%M:%S</arg>
+<doc>Returns current local or UTC time with an optional increment.</doc>
+<status status="PASS" start="2025-03-17T00:24:53.121005" elapsed="0.000950"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-03-17T00:24:53.122943" level="INFO">${planilha} = C:\NOVO-CRUD\Results\relatorio_erros.csv</msg>
+<var>${planilha}</var>
+<arg>${EXECDIR}${/}Results${/}relatorio_erros.csv</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-03-17T00:24:53.121955" elapsed="0.000988"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-03-17T00:24:53.123939" level="INFO">Tentando salvar resultado em: C:\NOVO-CRUD\Results\relatorio_erros.csv</msg>
+<arg>Tentando salvar resultado em: ${planilha}</arg>
+<arg>console=True</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-03-17T00:24:53.122943" elapsed="0.000996"/>
+</kw>
+<kw name="Create List" owner="BuiltIn">
+<msg time="2025-03-17T00:24:53.125950" level="INFO">${dados} = ['17/03/2025 00:24:53', 'Read Unicorn', 'PASS', 'N/A', 'Nenhum erro encontrado']</msg>
+<var>${dados}</var>
+<arg>${timestamp}</arg>
+<arg>${test_name}</arg>
+<arg>${status}</arg>
+<arg>${error_code}</arg>
+<arg>${error_message}</arg>
+<doc>Returns a list containing given items.</doc>
+<status status="PASS" start="2025-03-17T00:24:53.124941" elapsed="0.001009"/>
+</kw>
+<kw name="Run Keyword And Return Status" owner="BuiltIn">
+<kw name="File Should Exist" owner="OperatingSystem">
+<msg time="2025-03-17T00:24:53.126941" level="INFO" html="true">File '&lt;a href="file://C:\NOVO-CRUD\Results\relatorio_erros.csv"&gt;C:\NOVO-CRUD\Results\relatorio_erros.csv&lt;/a&gt;' exists.</msg>
+<arg>${planilha}</arg>
+<doc>Fails unless the given ``path`` points to an existing file.</doc>
+<status status="PASS" start="2025-03-17T00:24:53.126941" elapsed="0.000000"/>
+</kw>
+<msg time="2025-03-17T00:24:53.126941" level="INFO">${planilha_existe} = True</msg>
+<var>${planilha_existe}</var>
+<arg>OperatingSystem.File Should Exist</arg>
+<arg>${planilha}</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<status status="PASS" start="2025-03-17T00:24:53.125950" elapsed="0.002031"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<arg>not ${planilha_existe}</arg>
+<arg>Criar Planilha Base</arg>
+<arg>${planilha}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2025-03-17T00:24:53.127981" elapsed="0.000000"/>
+</kw>
+<kw name="Convert List To CSV Line" owner="common">
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-03-17T00:24:53.129938" level="INFO">${linha_csv} = </msg>
+<var>${linha_csv}</var>
+<arg>${EMPTY}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-03-17T00:24:53.128938" elapsed="0.001000"/>
+</kw>
+<for flavor="IN">
+<iter>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-03-17T00:24:53.130939" level="INFO">${linha_csv} = 17/03/2025 00:24:53,</msg>
+<var>${linha_csv}</var>
+<arg>${linha_csv}${item},</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-03-17T00:24:53.130939" elapsed="0.001003"/>
+</kw>
+<var name="${item}">17/03/2025 00:24:53</var>
+<status status="PASS" start="2025-03-17T00:24:53.129938" elapsed="0.002004"/>
+</iter>
+<iter>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-03-17T00:24:53.132932" level="INFO">${linha_csv} = 17/03/2025 00:24:53,Read Unicorn,</msg>
+<var>${linha_csv}</var>
+<arg>${linha_csv}${item},</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-03-17T00:24:53.131942" elapsed="0.000990"/>
+</kw>
+<var name="${item}">Read Unicorn</var>
+<status status="PASS" start="2025-03-17T00:24:53.131942" elapsed="0.000990"/>
+</iter>
+<iter>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-03-17T00:24:53.133977" level="INFO">${linha_csv} = 17/03/2025 00:24:53,Read Unicorn,PASS,</msg>
+<var>${linha_csv}</var>
+<arg>${linha_csv}${item},</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-03-17T00:24:53.132932" elapsed="0.001045"/>
+</kw>
+<var name="${item}">PASS</var>
+<status status="PASS" start="2025-03-17T00:24:53.132932" elapsed="0.001045"/>
+</iter>
+<iter>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-03-17T00:24:53.133977" level="INFO">${linha_csv} = 17/03/2025 00:24:53,Read Unicorn,PASS,N/A,</msg>
+<var>${linha_csv}</var>
+<arg>${linha_csv}${item},</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-03-17T00:24:53.133977" elapsed="0.000000"/>
+</kw>
+<var name="${item}">N/A</var>
+<status status="PASS" start="2025-03-17T00:24:53.133977" elapsed="0.000000"/>
+</iter>
+<iter>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-03-17T00:24:53.134936" level="INFO">${linha_csv} = 17/03/2025 00:24:53,Read Unicorn,PASS,N/A,Nenhum erro encontrado,</msg>
+<var>${linha_csv}</var>
+<arg>${linha_csv}${item},</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-03-17T00:24:53.134936" elapsed="0.000000"/>
+</kw>
+<var name="${item}">Nenhum erro encontrado</var>
+<status status="PASS" start="2025-03-17T00:24:53.134936" elapsed="0.000000"/>
+</iter>
+<var>${item}</var>
+<value>@{lista}</value>
+<status status="PASS" start="2025-03-17T00:24:53.129938" elapsed="0.004998"/>
+</for>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2025-03-17T00:24:53.135975" level="INFO">${linha_csv} = 17/03/2025 00:24:53,Read Unicorn,PASS,N/A,Nenhum erro encontrado</msg>
+<var>${linha_csv}</var>
+<arg>'${linha_csv}'.rstrip(',')</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2025-03-17T00:24:53.134936" elapsed="0.001039"/>
+</kw>
+<return>
+<value>${linha_csv}</value>
+<status status="PASS" start="2025-03-17T00:24:53.135975" elapsed="0.000000"/>
+</return>
+<msg time="2025-03-17T00:24:53.135975" level="INFO">${linha_csv} = 17/03/2025 00:24:53,Read Unicorn,PASS,N/A,Nenhum erro encontrado</msg>
+<var>${linha_csv}</var>
+<arg>${dados}</arg>
+<status status="PASS" start="2025-03-17T00:24:53.128938" elapsed="0.007037"/>
+</kw>
+<kw name="Append To File" owner="OperatingSystem">
+<msg time="2025-03-17T00:24:53.136934" level="INFO" html="true">Appended to file '&lt;a href="file://C:\NOVO-CRUD\Results\relatorio_erros.csv"&gt;C:\NOVO-CRUD\Results\relatorio_erros.csv&lt;/a&gt;'.</msg>
+<arg>${planilha}</arg>
+<arg>${linha_csv}\n</arg>
+<arg>encoding=UTF-8</arg>
+<doc>Appends the given content to the specified file.</doc>
+<status status="PASS" start="2025-03-17T00:24:53.135975" elapsed="0.000959"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-03-17T00:24:53.137937" level="INFO">Resultado salvo com sucesso!</msg>
+<arg>Resultado salvo com sucesso!</arg>
+<arg>console=True</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-03-17T00:24:53.137937" elapsed="0.000000"/>
+</kw>
+<arg>${TEST_NAME}</arg>
+<arg>status=PASS</arg>
+<status status="PASS" start="2025-03-17T00:24:53.119953" elapsed="0.018984"/>
+</kw>
+<status status="PASS" start="2025-03-17T00:24:52.872628" elapsed="0.266309"/>
+</test>
+<test id="s1-t3" name="Update Unicorn" line="46">
+<kw name="PUT On Session" owner="RequestsLibrary">
+<msg time="2025-03-17T00:24:53.350086" level="INFO">PUT Request : url=https://crudcrud.com/api/a7ad96509b9843da897ada83cc073c7e/unicorns/67d79604bcc53d03e808bbde 
+ path_url=/api/a7ad96509b9843da897ada83cc073c7e/unicorns/67d79604bcc53d03e808bbde 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '63', 'Content-Type': 'application/json'} 
+ body=b'{"name": "Sparkle Angel Updated", "age": 3, "colour": "purple"}' 
+ </msg>
+<msg time="2025-03-17T00:24:53.350086" level="INFO">PUT Response : url=https://crudcrud.com/api/a7ad96509b9843da897ada83cc073c7e/unicorns/67d79604bcc53d03e808bbde 
+ status=200, reason=OK 
+ headers={'Server': 'nginx/1.14.2', 'Date': 'Mon, 17 Mar 2025 03:24:53 GMT', 'Content-Length': '0', 'Connection': 'keep-alive', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS', 'Access-Control-Allow-Headers': 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range', 'Access-Control-Expose-Headers': 'Content-Length,Content-Range'} 
+ body=None 
+ </msg>
+<msg time="2025-03-17T00:24:53.350086" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<var>${response}</var>
+<arg>crud</arg>
+<arg>${RESOURCE}/${UNICORN_ID}</arg>
+<arg>json=${UPDATED_UNICORN_DATA}</arg>
+<doc>Sends a PUT request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2025-03-17T00:24:53.140940" elapsed="0.209146"/>
+</kw>
+<kw name="Should Be Equal As Numbers" owner="BuiltIn">
+<msg time="2025-03-17T00:24:53.353093" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${response.status_code}</arg>
+<arg>200</arg>
+<doc>Fails if objects are unequal after converting them to real numbers.</doc>
+<status status="PASS" start="2025-03-17T00:24:53.351081" elapsed="0.002012"/>
+</kw>
+<kw name="GET On Session" owner="RequestsLibrary">
+<msg time="2025-03-17T00:24:53.570447" level="INFO">GET Request : url=https://crudcrud.com/api/a7ad96509b9843da897ada83cc073c7e/unicorns/67d79604bcc53d03e808bbde 
+ path_url=/api/a7ad96509b9843da897ada83cc073c7e/unicorns/67d79604bcc53d03e808bbde 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg time="2025-03-17T00:24:53.570447" level="INFO">GET Response : url=https://crudcrud.com/api/a7ad96509b9843da897ada83cc073c7e/unicorns/67d79604bcc53d03e808bbde 
+ status=200, reason=OK 
+ headers={'Server': 'nginx/1.14.2', 'Date': 'Mon, 17 Mar 2025 03:24:53 GMT', 'Content-Type': 'application/json; charset=utf-8', 'Transfer-Encoding': 'chunked', 'Connection': 'keep-alive', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS', 'Access-Control-Allow-Headers': 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range', 'Access-Control-Expose-Headers': 'Content-Length,Content-Range'} 
+ body={"_id":"67d79604bcc53d03e808bbde","name":"Sparkle Angel Updated","age":3,"colour":"purple"} 
+ </msg>
+<msg time="2025-03-17T00:24:53.570447" level="INFO">${updated_response} = &lt;Response [200]&gt;</msg>
+<var>${updated_response}</var>
+<arg>crud</arg>
+<arg>${RESOURCE}/${UNICORN_ID}</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2025-03-17T00:24:53.354053" elapsed="0.216394"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-03-17T00:24:53.571443" level="INFO">${response_data} = {'_id': '67d79604bcc53d03e808bbde', 'name': 'Sparkle Angel Updated', 'age': 3, 'colour': 'purple'}</msg>
+<var>${response_data}</var>
+<arg>${updated_response.json()}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-03-17T00:24:53.570447" elapsed="0.000996"/>
+</kw>
+<kw name="Should Be Equal As Strings" owner="BuiltIn">
+<arg>${response_data['name']}</arg>
+<arg>${UPDATED_UNICORN_DATA['name']}</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" start="2025-03-17T00:24:53.571443" elapsed="0.001043"/>
+</kw>
+<kw name="Should Be Equal As Numbers" owner="BuiltIn">
+<arg>${response_data['age']}</arg>
+<arg>${UPDATED_UNICORN_DATA['age']}</arg>
+<doc>Fails if objects are unequal after converting them to real numbers.</doc>
+<status status="PASS" start="2025-03-17T00:24:53.572486" elapsed="0.001000"/>
+</kw>
+<kw name="Should Be Equal As Strings" owner="BuiltIn">
+<arg>${response_data['colour']}</arg>
+<arg>${UPDATED_UNICORN_DATA['colour']}</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" start="2025-03-17T00:24:53.573486" elapsed="0.001000"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-03-17T00:24:53.575487" level="INFO">
+🔄 ATUALIZADO: De 'Sparkle Angel' para 'Sparkle Angel Updated'</msg>
+<arg>\n🔄 ATUALIZADO: De '${UNICORN_DATA['name']}' para '${UPDATED_UNICORN_DATA['name']}'</arg>
+<arg>console=True</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-03-17T00:24:53.574486" elapsed="0.001001"/>
+</kw>
+<kw name="Registrar Resultado na Planilha" owner="common">
+<kw name="Get Current Date" owner="DateTime">
+<msg time="2025-03-17T00:24:53.577495" level="INFO">${timestamp} = 17/03/2025 00:24:53</msg>
+<var>${timestamp}</var>
+<arg>result_format=%d/%m/%Y %H:%M:%S</arg>
+<doc>Returns current local or UTC time with an optional increment.</doc>
+<status status="PASS" start="2025-03-17T00:24:53.576493" elapsed="0.001002"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-03-17T00:24:53.577495" level="INFO">${planilha} = C:\NOVO-CRUD\Results\relatorio_erros.csv</msg>
+<var>${planilha}</var>
+<arg>${EXECDIR}${/}Results${/}relatorio_erros.csv</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-03-17T00:24:53.577495" elapsed="0.000000"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-03-17T00:24:53.577495" level="INFO">Tentando salvar resultado em: C:\NOVO-CRUD\Results\relatorio_erros.csv</msg>
+<arg>Tentando salvar resultado em: ${planilha}</arg>
+<arg>console=True</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-03-17T00:24:53.577495" elapsed="0.001002"/>
+</kw>
+<kw name="Create List" owner="BuiltIn">
+<msg time="2025-03-17T00:24:53.578497" level="INFO">${dados} = ['17/03/2025 00:24:53', 'Update Unicorn', 'PASS', 'N/A', 'Nenhum erro encontrado']</msg>
+<var>${dados}</var>
+<arg>${timestamp}</arg>
+<arg>${test_name}</arg>
+<arg>${status}</arg>
+<arg>${error_code}</arg>
+<arg>${error_message}</arg>
+<doc>Returns a list containing given items.</doc>
+<status status="PASS" start="2025-03-17T00:24:53.578497" elapsed="0.000000"/>
+</kw>
+<kw name="Run Keyword And Return Status" owner="BuiltIn">
+<kw name="File Should Exist" owner="OperatingSystem">
+<msg time="2025-03-17T00:24:53.579499" level="INFO" html="true">File '&lt;a href="file://C:\NOVO-CRUD\Results\relatorio_erros.csv"&gt;C:\NOVO-CRUD\Results\relatorio_erros.csv&lt;/a&gt;' exists.</msg>
+<arg>${planilha}</arg>
+<doc>Fails unless the given ``path`` points to an existing file.</doc>
+<status status="PASS" start="2025-03-17T00:24:53.579499" elapsed="0.000000"/>
+</kw>
+<msg time="2025-03-17T00:24:53.579499" level="INFO">${planilha_existe} = True</msg>
+<var>${planilha_existe}</var>
+<arg>OperatingSystem.File Should Exist</arg>
+<arg>${planilha}</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<status status="PASS" start="2025-03-17T00:24:53.579499" elapsed="0.000000"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<arg>not ${planilha_existe}</arg>
+<arg>Criar Planilha Base</arg>
+<arg>${planilha}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2025-03-17T00:24:53.579499" elapsed="0.000998"/>
+</kw>
+<kw name="Convert List To CSV Line" owner="common">
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-03-17T00:24:53.580497" level="INFO">${linha_csv} = </msg>
+<var>${linha_csv}</var>
+<arg>${EMPTY}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-03-17T00:24:53.580497" elapsed="0.000995"/>
+</kw>
+<for flavor="IN">
+<iter>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-03-17T00:24:53.581492" level="INFO">${linha_csv} = 17/03/2025 00:24:53,</msg>
+<var>${linha_csv}</var>
+<arg>${linha_csv}${item},</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-03-17T00:24:53.581492" elapsed="0.000000"/>
+</kw>
+<var name="${item}">17/03/2025 00:24:53</var>
+<status status="PASS" start="2025-03-17T00:24:53.581492" elapsed="0.000000"/>
+</iter>
+<iter>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-03-17T00:24:53.582496" level="INFO">${linha_csv} = 17/03/2025 00:24:53,Update Unicorn,</msg>
+<var>${linha_csv}</var>
+<arg>${linha_csv}${item},</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-03-17T00:24:53.581492" elapsed="0.001004"/>
+</kw>
+<var name="${item}">Update Unicorn</var>
+<status status="PASS" start="2025-03-17T00:24:53.581492" elapsed="0.001004"/>
+</iter>
+<iter>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-03-17T00:24:53.582496" level="INFO">${linha_csv} = 17/03/2025 00:24:53,Update Unicorn,PASS,</msg>
+<var>${linha_csv}</var>
+<arg>${linha_csv}${item},</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-03-17T00:24:53.582496" elapsed="0.000000"/>
+</kw>
+<var name="${item}">PASS</var>
+<status status="PASS" start="2025-03-17T00:24:53.582496" elapsed="0.000997"/>
+</iter>
+<iter>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-03-17T00:24:53.583493" level="INFO">${linha_csv} = 17/03/2025 00:24:53,Update Unicorn,PASS,N/A,</msg>
+<var>${linha_csv}</var>
+<arg>${linha_csv}${item},</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-03-17T00:24:53.583493" elapsed="0.000000"/>
+</kw>
+<var name="${item}">N/A</var>
+<status status="PASS" start="2025-03-17T00:24:53.583493" elapsed="0.000000"/>
+</iter>
+<iter>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-03-17T00:24:53.583493" level="INFO">${linha_csv} = 17/03/2025 00:24:53,Update Unicorn,PASS,N/A,Nenhum erro encontrado,</msg>
+<var>${linha_csv}</var>
+<arg>${linha_csv}${item},</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-03-17T00:24:53.583493" elapsed="0.000000"/>
+</kw>
+<var name="${item}">Nenhum erro encontrado</var>
+<status status="PASS" start="2025-03-17T00:24:53.583493" elapsed="0.000000"/>
+</iter>
+<var>${item}</var>
+<value>@{lista}</value>
+<status status="PASS" start="2025-03-17T00:24:53.581492" elapsed="0.002001"/>
+</for>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2025-03-17T00:24:53.584495" level="INFO">${linha_csv} = 17/03/2025 00:24:53,Update Unicorn,PASS,N/A,Nenhum erro encontrado</msg>
+<var>${linha_csv}</var>
+<arg>'${linha_csv}'.rstrip(',')</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2025-03-17T00:24:53.584495" elapsed="0.000000"/>
+</kw>
+<return>
+<value>${linha_csv}</value>
+<status status="PASS" start="2025-03-17T00:24:53.584495" elapsed="0.000000"/>
+</return>
+<msg time="2025-03-17T00:24:53.584495" level="INFO">${linha_csv} = 17/03/2025 00:24:53,Update Unicorn,PASS,N/A,Nenhum erro encontrado</msg>
+<var>${linha_csv}</var>
+<arg>${dados}</arg>
+<status status="PASS" start="2025-03-17T00:24:53.580497" elapsed="0.003998"/>
+</kw>
+<kw name="Append To File" owner="OperatingSystem">
+<msg time="2025-03-17T00:24:53.585496" level="INFO" html="true">Appended to file '&lt;a href="file://C:\NOVO-CRUD\Results\relatorio_erros.csv"&gt;C:\NOVO-CRUD\Results\relatorio_erros.csv&lt;/a&gt;'.</msg>
+<arg>${planilha}</arg>
+<arg>${linha_csv}\n</arg>
+<arg>encoding=UTF-8</arg>
+<doc>Appends the given content to the specified file.</doc>
+<status status="PASS" start="2025-03-17T00:24:53.584495" elapsed="0.001001"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-03-17T00:24:53.586495" level="INFO">Resultado salvo com sucesso!</msg>
+<arg>Resultado salvo com sucesso!</arg>
+<arg>console=True</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-03-17T00:24:53.586495" elapsed="0.000000"/>
+</kw>
+<arg>${TEST_NAME}</arg>
+<arg>status=PASS</arg>
+<status status="PASS" start="2025-03-17T00:24:53.576493" elapsed="0.011007"/>
+</kw>
+<status status="PASS" start="2025-03-17T00:24:53.139933" elapsed="0.447567"/>
+</test>
+<test id="s1-t4" name="Delete Unicorn" line="62">
+<kw name="DELETE On Session" owner="RequestsLibrary">
+<msg time="2025-03-17T00:24:53.805455" level="INFO">DELETE Request : url=https://crudcrud.com/api/a7ad96509b9843da897ada83cc073c7e/unicorns/67d79604bcc53d03e808bbde 
+ path_url=/api/a7ad96509b9843da897ada83cc073c7e/unicorns/67d79604bcc53d03e808bbde 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '0'} 
+ body=None 
+ </msg>
+<msg time="2025-03-17T00:24:53.805455" level="INFO">DELETE Response : url=https://crudcrud.com/api/a7ad96509b9843da897ada83cc073c7e/unicorns/67d79604bcc53d03e808bbde 
+ status=200, reason=OK 
+ headers={'Server': 'nginx/1.14.2', 'Date': 'Mon, 17 Mar 2025 03:24:53 GMT', 'Content-Length': '0', 'Connection': 'keep-alive', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS', 'Access-Control-Allow-Headers': 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range', 'Access-Control-Expose-Headers': 'Content-Length,Content-Range'} 
+ body=None 
+ </msg>
+<msg time="2025-03-17T00:24:53.805455" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<var>${response}</var>
+<arg>crud</arg>
+<arg>${RESOURCE}/${UNICORN_ID}</arg>
+<doc>Sends a DELETE request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2025-03-17T00:24:53.589527" elapsed="0.215928"/>
+</kw>
+<kw name="Should Be Equal As Numbers" owner="BuiltIn">
+<msg time="2025-03-17T00:24:53.806403" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${response.status_code}</arg>
+<arg>200</arg>
+<doc>Fails if objects are unequal after converting them to real numbers.</doc>
+<status status="PASS" start="2025-03-17T00:24:53.806403" elapsed="0.000000"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-03-17T00:24:53.807447" level="INFO">
+🗑️ DELETADO: ID 67d79604bcc53d03e808bbde - Dados removidos com sucesso!</msg>
+<arg>\n🗑️ DELETADO: ID ${UNICORN_ID} - Dados removidos com sucesso!</arg>
+<arg>console=True</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-03-17T00:24:53.807447" elapsed="0.000000"/>
+</kw>
+<kw name="GET On Session" owner="RequestsLibrary">
+<msg time="2025-03-17T00:24:54.023475" level="INFO">GET Request : url=https://crudcrud.com/api/a7ad96509b9843da897ada83cc073c7e/unicorns/67d79604bcc53d03e808bbde 
+ path_url=/api/a7ad96509b9843da897ada83cc073c7e/unicorns/67d79604bcc53d03e808bbde 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg time="2025-03-17T00:24:54.023475" level="INFO">GET Response : url=https://crudcrud.com/api/a7ad96509b9843da897ada83cc073c7e/unicorns/67d79604bcc53d03e808bbde 
+ status=404, reason=Not Found 
+ headers={'Server': 'nginx/1.14.2', 'Date': 'Mon, 17 Mar 2025 03:24:53 GMT', 'Content-Type': 'application/problem+json; charset=utf-8', 'Transfer-Encoding': 'chunked', 'Connection': 'keep-alive'} 
+ body={"type":"https://tools.ietf.org/html/rfc7231#section-6.5.4","title":"Not Found","status":404,"traceId":"0HNB0G60378A5:00000001"} 
+ </msg>
+<msg time="2025-03-17T00:24:54.024435" level="INFO">${response} = &lt;Response [404]&gt;</msg>
+<var>${response}</var>
+<arg>crud</arg>
+<arg>${RESOURCE}/${UNICORN_ID}</arg>
+<arg>expected_status=404</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2025-03-17T00:24:53.808406" elapsed="0.216029"/>
+</kw>
+<kw name="Should Be Equal As Numbers" owner="BuiltIn">
+<msg time="2025-03-17T00:24:54.024435" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${response.status_code}</arg>
+<arg>404</arg>
+<doc>Fails if objects are unequal after converting them to real numbers.</doc>
+<status status="PASS" start="2025-03-17T00:24:54.024435" elapsed="0.000000"/>
+</kw>
+<kw name="Registrar Resultado na Planilha" owner="common">
+<kw name="Get Current Date" owner="DateTime">
+<msg time="2025-03-17T00:24:54.025479" level="INFO">${timestamp} = 17/03/2025 00:24:54</msg>
+<var>${timestamp}</var>
+<arg>result_format=%d/%m/%Y %H:%M:%S</arg>
+<doc>Returns current local or UTC time with an optional increment.</doc>
+<status status="PASS" start="2025-03-17T00:24:54.025479" elapsed="0.000000"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-03-17T00:24:54.026474" level="INFO">${planilha} = C:\NOVO-CRUD\Results\relatorio_erros.csv</msg>
+<var>${planilha}</var>
+<arg>${EXECDIR}${/}Results${/}relatorio_erros.csv</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-03-17T00:24:54.025479" elapsed="0.000995"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-03-17T00:24:54.026474" level="INFO">Tentando salvar resultado em: C:\NOVO-CRUD\Results\relatorio_erros.csv</msg>
+<arg>Tentando salvar resultado em: ${planilha}</arg>
+<arg>console=True</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-03-17T00:24:54.026474" elapsed="0.000000"/>
+</kw>
+<kw name="Create List" owner="BuiltIn">
+<msg time="2025-03-17T00:24:54.027431" level="INFO">${dados} = ['17/03/2025 00:24:54', 'Delete Unicorn', 'PASS', 'N/A', 'Nenhum erro encontrado']</msg>
+<var>${dados}</var>
+<arg>${timestamp}</arg>
+<arg>${test_name}</arg>
+<arg>${status}</arg>
+<arg>${error_code}</arg>
+<arg>${error_message}</arg>
+<doc>Returns a list containing given items.</doc>
+<status status="PASS" start="2025-03-17T00:24:54.026474" elapsed="0.000957"/>
+</kw>
+<kw name="Run Keyword And Return Status" owner="BuiltIn">
+<kw name="File Should Exist" owner="OperatingSystem">
+<msg time="2025-03-17T00:24:54.027431" level="INFO" html="true">File '&lt;a href="file://C:\NOVO-CRUD\Results\relatorio_erros.csv"&gt;C:\NOVO-CRUD\Results\relatorio_erros.csv&lt;/a&gt;' exists.</msg>
+<arg>${planilha}</arg>
+<doc>Fails unless the given ``path`` points to an existing file.</doc>
+<status status="PASS" start="2025-03-17T00:24:54.027431" elapsed="0.000000"/>
+</kw>
+<msg time="2025-03-17T00:24:54.027431" level="INFO">${planilha_existe} = True</msg>
+<var>${planilha_existe}</var>
+<arg>OperatingSystem.File Should Exist</arg>
+<arg>${planilha}</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<status status="PASS" start="2025-03-17T00:24:54.027431" elapsed="0.000000"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<arg>not ${planilha_existe}</arg>
+<arg>Criar Planilha Base</arg>
+<arg>${planilha}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2025-03-17T00:24:54.027431" elapsed="0.001044"/>
+</kw>
+<kw name="Convert List To CSV Line" owner="common">
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-03-17T00:24:54.028475" level="INFO">${linha_csv} = </msg>
+<var>${linha_csv}</var>
+<arg>${EMPTY}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-03-17T00:24:54.028475" elapsed="0.000000"/>
+</kw>
+<for flavor="IN">
+<iter>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-03-17T00:24:54.029474" level="INFO">${linha_csv} = 17/03/2025 00:24:54,</msg>
+<var>${linha_csv}</var>
+<arg>${linha_csv}${item},</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-03-17T00:24:54.029474" elapsed="0.000000"/>
+</kw>
+<var name="${item}">17/03/2025 00:24:54</var>
+<status status="PASS" start="2025-03-17T00:24:54.029474" elapsed="0.000000"/>
+</iter>
+<iter>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-03-17T00:24:54.029474" level="INFO">${linha_csv} = 17/03/2025 00:24:54,Delete Unicorn,</msg>
+<var>${linha_csv}</var>
+<arg>${linha_csv}${item},</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-03-17T00:24:54.029474" elapsed="0.000000"/>
+</kw>
+<var name="${item}">Delete Unicorn</var>
+<status status="PASS" start="2025-03-17T00:24:54.029474" elapsed="0.000000"/>
+</iter>
+<iter>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-03-17T00:24:54.030474" level="INFO">${linha_csv} = 17/03/2025 00:24:54,Delete Unicorn,PASS,</msg>
+<var>${linha_csv}</var>
+<arg>${linha_csv}${item},</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-03-17T00:24:54.029474" elapsed="0.001000"/>
+</kw>
+<var name="${item}">PASS</var>
+<status status="PASS" start="2025-03-17T00:24:54.029474" elapsed="0.001000"/>
+</iter>
+<iter>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-03-17T00:24:54.030474" level="INFO">${linha_csv} = 17/03/2025 00:24:54,Delete Unicorn,PASS,N/A,</msg>
+<var>${linha_csv}</var>
+<arg>${linha_csv}${item},</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-03-17T00:24:54.030474" elapsed="0.000000"/>
+</kw>
+<var name="${item}">N/A</var>
+<status status="PASS" start="2025-03-17T00:24:54.030474" elapsed="0.000000"/>
+</iter>
+<iter>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-03-17T00:24:54.030474" level="INFO">${linha_csv} = 17/03/2025 00:24:54,Delete Unicorn,PASS,N/A,Nenhum erro encontrado,</msg>
+<var>${linha_csv}</var>
+<arg>${linha_csv}${item},</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-03-17T00:24:54.030474" elapsed="0.000000"/>
+</kw>
+<var name="${item}">Nenhum erro encontrado</var>
+<status status="PASS" start="2025-03-17T00:24:54.030474" elapsed="0.000000"/>
+</iter>
+<var>${item}</var>
+<value>@{lista}</value>
+<status status="PASS" start="2025-03-17T00:24:54.029474" elapsed="0.001000"/>
+</for>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2025-03-17T00:24:54.031475" level="INFO">${linha_csv} = 17/03/2025 00:24:54,Delete Unicorn,PASS,N/A,Nenhum erro encontrado</msg>
+<var>${linha_csv}</var>
+<arg>'${linha_csv}'.rstrip(',')</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2025-03-17T00:24:54.031475" elapsed="0.000000"/>
+</kw>
+<return>
+<value>${linha_csv}</value>
+<status status="PASS" start="2025-03-17T00:24:54.031475" elapsed="0.000000"/>
+</return>
+<msg time="2025-03-17T00:24:54.031475" level="INFO">${linha_csv} = 17/03/2025 00:24:54,Delete Unicorn,PASS,N/A,Nenhum erro encontrado</msg>
+<var>${linha_csv}</var>
+<arg>${dados}</arg>
+<status status="PASS" start="2025-03-17T00:24:54.028475" elapsed="0.003959"/>
+</kw>
+<kw name="Append To File" owner="OperatingSystem">
+<msg time="2025-03-17T00:24:54.032434" level="INFO" html="true">Appended to file '&lt;a href="file://C:\NOVO-CRUD\Results\relatorio_erros.csv"&gt;C:\NOVO-CRUD\Results\relatorio_erros.csv&lt;/a&gt;'.</msg>
+<arg>${planilha}</arg>
+<arg>${linha_csv}\n</arg>
+<arg>encoding=UTF-8</arg>
+<doc>Appends the given content to the specified file.</doc>
+<status status="PASS" start="2025-03-17T00:24:54.032434" elapsed="0.000998"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-03-17T00:24:54.033432" level="INFO">Resultado salvo com sucesso!</msg>
+<arg>Resultado salvo com sucesso!</arg>
+<arg>console=True</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-03-17T00:24:54.033432" elapsed="0.000000"/>
+</kw>
+<arg>${TEST_NAME}</arg>
+<arg>status=PASS</arg>
+<status status="PASS" start="2025-03-17T00:24:54.025479" elapsed="0.008953"/>
+</kw>
+<kw name="Delete All Sessions" owner="RequestsLibrary" type="TEARDOWN">
+<msg time="2025-03-17T00:24:54.034432" level="INFO">Deleting All Sessions</msg>
+<doc>Removes all the session objects</doc>
+<status status="PASS" start="2025-03-17T00:24:54.034432" elapsed="0.000000"/>
+</kw>
+<status status="PASS" start="2025-03-17T00:24:53.589527" elapsed="0.444905"/>
+</test>
+<status status="PASS" start="2025-03-17T00:24:51.325627" elapsed="2.710808"/>
+</suite>
+<statistics>
+<total>
+<stat pass="4" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat name="Crud Tests" id="s1" pass="4" fail="0" skip="0">Crud Tests</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
