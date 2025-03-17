@@ -27,7 +27,7 @@ python.exe -m pip install --upgrade pip
 
 ### 2. Clone o repositório
 ```bash
-git clone https://github.com/Rubejunior/Crudcrud-robotFramework.git
+git clone https://github.com/Rubejunior/crud-robotframework.git
 cd projeto-api-tests
 ```
 
